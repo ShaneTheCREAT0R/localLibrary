@@ -9,22 +9,27 @@ function findBookById(books, id) {
 }
 
 
+
+
+//helper function to filter the books that are checked out
+function checkedOut(books){
+   const checkedOutBooks = books.filter((book) => book.borrows[0].returned === false)
+   return checkedOutBooks
+} 
+
+
 function partitionBooksByBorrowedStatus(books) {
  
-  //use filter method to filter the books that are checked out
-   const checkedOut = books.filter((book) => book.borrows[0].returned === false)
+  const borrowed = checkedOut(books)
   //use filter method to filter the books that have been returned
     const returned = books.filter((book) => book.borrows[0].returned === true)
     
   //return one array with two separate arrays inside it
- return [checkedOut, returned]  
+    let finalArray = [[...borrowed], [...returned]]
+    return finalArray
 }
 
-/*
-It should return an array of ten or fewer account objects that represents the accounts given by the IDs in the provided book's `borrows` array. However, each account object should include the `returned` entry from the corresponding transaction object in the `borrows` array.
 
-output= 10 or fewer account objects that include the returned entry from that book's borrows array
-*/
 
 function getBorrowersForBook(book, accounts) {
    //create an empty array to put the output in
@@ -50,6 +55,7 @@ function getBorrowersForBook(book, accounts) {
   //include the returned entry from book's borrows array in output array
   return results
 }
+
 
 
 
